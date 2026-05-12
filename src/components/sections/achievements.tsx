@@ -214,15 +214,17 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
 
     if (categoryMap[activeFile]) {
       const category = categoryMap[activeFile]
-      const descriptionMap = {
+      const descriptionMap: Record<Exclude<CategoryType, 'All Categories'>, string> = {
         'Hackathons': "Full-scale applications built in high-pressure competitive environments.",
         'Publications': "Research papers and technical publications on software and AI.",
         'Certifications': "Professional certifications from industry-leading organizations."
       }
       
+      const displayCategory = category as Exclude<CategoryType, 'All Categories'>
+      
       return (
         <section className="space-y-2">
-          {renderHeader(category === 'Publications' ? 'Research Papers' : category, descriptionMap[category])}
+          {renderHeader(category === 'Publications' ? 'Research Papers' : category, descriptionMap[displayCategory])}
           {renderItems(filteredAndSortedItems.filter(a => a.category === category))}
         </section>
       )
