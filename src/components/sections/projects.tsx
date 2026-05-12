@@ -51,7 +51,7 @@ export function ProjectsSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="w-full rounded-[2.5rem] bg-linear-to-b from-primary/5 to-transparent border border-primary/10 overflow-hidden p-8 lg:p-12"
+          className="w-full rounded-2xl bg-linear-to-b from-primary/5 to-transparent border border-primary/10 overflow-hidden p-8 lg:p-12"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -94,7 +94,7 @@ export function ProjectsSection() {
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
           >
-            <Card className="group h-full flex flex-col rounded-[2rem] overflow-hidden border-muted bg-card/20 backdrop-blur-xl hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+            <Card className="group h-full flex flex-col rounded-xl overflow-hidden border-muted bg-card/20 backdrop-blur-xl hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
               <CardHeader className="p-0">
                 <div className="relative h-48 overflow-hidden">
                   <img 

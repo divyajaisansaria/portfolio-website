@@ -54,7 +54,7 @@ const HighlightCard = ({ label, value, index, icon: Icon }: { label: string; val
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.1 * index }}
-      className="relative p-6 rounded-3xl bg-card/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group overflow-hidden"
+      className="relative p-6 rounded-xl bg-card/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group overflow-hidden"
     >
       <div className="absolute -right-2 -top-2 opacity-5 group-hover:opacity-10 group-hover:scale-125 transition-all duration-500">
         <Icon className="w-16 h-16 text-primary" />
@@ -92,7 +92,7 @@ const DashboardCard = ({
     viewport={{ once: false, amount: 0.3 }}
     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     className={cn(
-      "p-10 rounded-[3rem] bg-card/20 backdrop-blur-xl border border-border/40 flex flex-col justify-between min-h-[360px] group transition-all duration-500",
+      "p-10 rounded-2xl bg-card/20 backdrop-blur-xl border border-border/40 flex flex-col justify-between min-h-[360px] group transition-all duration-500",
       className
     )}
   >
@@ -227,7 +227,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative aspect-square max-w-[280px] mx-auto rounded-[2.5rem] overflow-hidden border-4 border-background shadow-2xl group"
+              className="relative aspect-square max-w-[280px] mx-auto rounded-2xl overflow-hidden border-4 border-background shadow-2xl group"
             >
               <img 
                 src="/images/profile.jpeg" 
@@ -336,7 +336,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="w-full p-10 lg:p-14 rounded-[3rem] bg-card/20 border border-border/40 backdrop-blur-xl flex flex-col items-center text-center gap-8 overflow-hidden relative group"
+        className="w-full p-10 lg:p-14 rounded-2xl bg-card/20 border border-border/40 backdrop-blur-xl flex flex-col items-center text-center gap-8 overflow-hidden relative group"
       >
         {/* Background Ambience - More subtle */}
         <div className="absolute inset-0 bg-linear-to-b from-primary/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />

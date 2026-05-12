@@ -27,20 +27,20 @@ export function ExperienceSection() {
             className="relative flex items-start md:odd:flex-row-reverse group"
           >
             {/* Timeline Dot */}
-            <div className="absolute left-5 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-10 h-10 rounded-none border border-border bg-background group-hover:border-primary group-hover:bg-primary/5 transition-all duration-500 z-10">
+            <div className="absolute left-5 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-background group-hover:border-primary group-hover:bg-primary/5 transition-all duration-500 z-10">
               <exp.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
             </div>
 
             {/* Content Card */}
-            <div className="ml-16 md:ml-0 md:w-[calc(50%-3rem)] p-8 border border-border/50 bg-card/10 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 group-hover:bg-primary/[0.01]">
+            <div className="ml-16 md:ml-0 md:w-[calc(50%-3rem)] p-8 border border-border/50 rounded-xl bg-card/10 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 group-hover:bg-primary/[0.01]">
               <div className="space-y-6">
                 {/* Header */}
                 <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold text-primary bg-primary/5 px-2 py-0.5 border border-primary/20 w-fit">
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold text-primary bg-primary/5 px-2 py-0.5 border border-primary/20 rounded-md w-fit">
                     <Calendar className="w-3 h-3" />
                     <span>{exp.duration}</span>
                   </div>
-                  <h3 className="text-2xl font-bold tracking-tight text-foreground">{exp.role}</h3>
+                  <h3 className="text-3xl font-bold tracking-tight text-foreground">{exp.role}</h3>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-medium">
                     <div className="flex items-center gap-1.5">
                       <span className="text-foreground font-bold">{exp.company}</span>
@@ -54,16 +54,16 @@ export function ExperienceSection() {
                 </div>
 
                 {/* Description */}
-                <p className="text-[13px] text-muted-foreground font-medium leading-relaxed opacity-90">
+                <p className="text-sm text-muted-foreground font-medium leading-relaxed opacity-90">
                   {exp.description}
                 </p>
 
                 {/* Contributions */}
                 <div className="space-y-3 pt-2">
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Key Contributions</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">Key Contributions</h4>
                   <ul className="space-y-2.5">
                     {exp.contributions.map((contribution, cIdx) => (
-                      <li key={cIdx} className="flex items-start gap-3 text-[13px] text-muted-foreground group/li">
+                      <li key={cIdx} className="flex items-start gap-3 text-sm text-muted-foreground group/li">
                         <CheckCircle2 className="w-4 h-4 text-primary/40 mt-0.5 flex-shrink-0 group-hover/li:text-primary transition-colors" />
                         <span className="group-hover/li:text-foreground transition-colors leading-relaxed">{contribution}</span>
                       </li>
@@ -78,7 +78,7 @@ export function ExperienceSection() {
                         {(exp.tech || exp.focusAreas)?.map((item) => (
                           <span 
                             key={item} 
-                            className="px-2 py-1 bg-muted/30 border border-border/60 text-[10px] font-semibold text-muted-foreground hover:border-primary/40 hover:text-primary transition-all duration-300"
+                            className="px-2 py-1 bg-muted/30 border border-border/60 rounded-md text-[10px] font-semibold text-muted-foreground hover:border-primary/40 hover:text-primary transition-all duration-300"
                           >
                             {item}
                           </span>
