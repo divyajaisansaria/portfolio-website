@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, LayoutGrid, List } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface MainContentProps {
   children: React.ReactNode
@@ -15,7 +16,7 @@ interface MainContentProps {
 }
 
 export function MainContent({ children, activeSection, searchQuery, setSearchQuery }: MainContentProps) {
-  const showHeader = activeSection !== "about"
+  const showHeader = activeSection !== "about" && activeSection !== "contact" && activeSection !== "achievements" && activeSection !== "experience"
 
   return (
     <main className="flex-1 h-screen overflow-hidden bg-background relative flex flex-col">
@@ -58,7 +59,11 @@ export function MainContent({ children, activeSection, searchQuery, setSearchQue
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 blur-[120px] -z-10 rounded-full" />
         
         <ScrollArea className="h-full">
-          <div className="max-w-5xl mx-auto px-8 py-12">
+          <div className={cn(
+            "mx-auto px-8 transition-all duration-500",
+            (activeSection === "about" || activeSection === "contact" || activeSection === "experience") ? "max-w-7xl py-12" : "max-w-5xl",
+            activeSection === "achievements" ? "pt-0 pb-12" : "py-12"
+          )}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection}

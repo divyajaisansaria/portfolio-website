@@ -1,63 +1,32 @@
-"use client"
-
 import React from "react"
 import { motion } from "framer-motion"
 import { 
   Code, 
   ExternalLink, 
-  Layers, 
-  Cpu, 
-  Globe,
   Monitor
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Laptop3D } from "@/components/ui/laptop-3d"
-
-const projects = [
-  {
-    title: "Multimodal RAG Dashboard",
-    description: "Production-grade RAG application with hierarchical table parsing and vector search.",
-    tech: ["Next.js", "FastAPI", "Gemini", "PostgreSQL"],
-    category: "AI/ML",
-    github: "#",
-    live: "#",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
-  },
-  {
-    title: "E-Commerce Nexus",
-    description: "Modern e-commerce platform with real-time inventory and serverless architecture.",
-    tech: ["React", "Stripe", "Supabase", "Tailwind"],
-    category: "E-Commerce",
-    github: "#",
-    live: "#",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800"
-  },
-  {
-    title: "Agentic Workflow Engine",
-    description: "Self-correcting AI agent system for automated coding and debugging tasks.",
-    tech: ["Python", "LangGraph", "Docker", "Redis"],
-    category: "AI/ML",
-    github: "#",
-    live: "#",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
-  }
-]
+import { projects } from "@/data/projects"
 
 export function ProjectsSection() {
   const [filter, setFilter] = React.useState("All")
   const categories = ["All", "AI/ML", "RAG", "E-Commerce", "Full Stack"]
 
+  const featuredProject = projects.find(p => p.featured)
+  const otherProjects = projects.filter(p => !p.featured)
+
   const filteredProjects = filter === "All" 
-    ? projects 
-    : projects.filter(p => p.category === filter)
+    ? otherProjects 
+    : otherProjects.filter(p => p.category === filter)
 
   return (
     <section id="projects" className="space-y-16">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
         <div className="space-y-4">
-          <h2 className="text-3xl lg:text-4xl font-heading font-black tracking-tight">Featured <span className="text-primary">Creations</span></h2>
+          <h2 className="text-3xl lg:text-4xl font-black tracking-tight">Featured <span className="text-primary">Creations</span></h2>
           <p className="text-muted-foreground max-w-xl">A showcase of technical excellence and creative problem solving.</p>
         </div>
         
@@ -77,42 +46,43 @@ export function ProjectsSection() {
       </div>
 
       {/* 3D Feature Area */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="w-full rounded-[2.5rem] bg-linear-to-b from-primary/5 to-transparent border border-primary/10 overflow-hidden p-8 lg:p-12"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <Badge className="bg-primary/20 text-primary border-none px-4 py-1">Featured Project</Badge>
-            <h3 className="text-4xl lg:text-5xl font-heading font-black">AI Code Assistant</h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              An agentic platform that automates complex refactoring and documentation. 
-              Integrated with Gemini 1.5 Pro for deep codebase understanding.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {["Next.js", "TypeScript", "LangChain", "Vector DB"].map((t) => (
-                <span key={t} className="text-sm font-medium text-primary/80">#{t}</span>
-              ))}
+      {featuredProject && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="w-full rounded-[2.5rem] bg-linear-to-b from-primary/5 to-transparent border border-primary/10 overflow-hidden p-8 lg:p-12"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <Badge className="bg-primary/20 text-primary border-none px-4 py-1">Featured Project</Badge>
+              <h3 className="text-4xl lg:text-5xl font-black">{featuredProject.title}</h3>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {featuredProject.description}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {featuredProject.tech.map((t) => (
+                  <span key={t} className="text-sm font-medium text-primary/80">#{t}</span>
+                ))}
+              </div>
+                  <div className="flex gap-4">
+                <Button className="rounded-2xl gap-2 px-8">
+                  <Monitor className="w-4 h-4" />
+                  Live Demo
+                </Button>
+                <Button variant="outline" className="rounded-2xl gap-2 px-8">
+                  <Code className="w-4 h-4" />
+                  Codebase
+                </Button>
+              </div>
             </div>
-                <div className="flex gap-4">
-              <Button className="rounded-2xl gap-2 px-8">
-                <Monitor className="w-4 h-4" />
-                Live Demo
-              </Button>
-              <Button variant="outline" className="rounded-2xl gap-2 px-8">
-                <Code className="w-4 h-4" />
-                Codebase
-              </Button>
+            
+            <div className="relative">
+               <Laptop3D />
             </div>
           </div>
-          
-          <div className="relative">
-             <Laptop3D />
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -148,7 +118,7 @@ export function ProjectsSection() {
                     <Badge key={t} variant="secondary" className="text-[10px] uppercase tracking-wider font-bold">{t}</Badge>
                   ))}
                 </div>
-                <CardTitle className="text-2xl font-heading font-bold">{project.title}</CardTitle>
+                <CardTitle className="text-2xl font-bold">{project.title}</CardTitle>
                 <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
               </CardContent>
               <CardFooter className="p-8 pt-0">

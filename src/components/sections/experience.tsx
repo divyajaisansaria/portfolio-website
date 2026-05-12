@@ -1,88 +1,91 @@
-"use client"
-
 import React from "react"
 import { motion } from "framer-motion"
-import { Briefcase, Calendar, MapPin, ExternalLink } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-
-const experiences = [
-  {
-    company: "TechNova Solutions",
-    role: "Senior Full Stack Intern",
-    duration: "Jan 2024 - Present",
-    location: "Remote",
-    description: "Leading the development of a microservices-based architecture for high-traffic e-commerce platforms. Optimized database queries resulting in a 40% reduction in load times.",
-    tech: ["Next.js", "Go", "Docker", "Redis"]
-  },
-  {
-    company: "AI Research Lab",
-    role: "NLP Research Intern",
-    duration: "June 2023 - Dec 2023",
-    location: "Bangalore, India",
-    description: "Developed and fine-tuned LLMs for specialized domain tasks. Implemented a robust RAG pipeline using LangChain and Pinecone.",
-    tech: ["Python", "PyTorch", "LangChain", "Vector DB"]
-  },
-  {
-    company: "Freelance Developer",
-    role: "Full Stack Engineer",
-    duration: "2022 - 2023",
-    location: "Worldwide",
-    description: "Built custom web solutions for international clients focusing on performance and SEO. Delivered 10+ successful projects across various industries.",
-    tech: ["React", "Node.js", "PostgreSQL", "AWS"]
-  }
-]
+import { Calendar, MapPin, CheckCircle2, Trophy, Users, Briefcase } from "lucide-react"
+import { experiences } from "@/data/experience"
+import { cn } from "@/lib/utils"
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="space-y-12">
+    <section id="experience" className="space-y-16  font-sans">
       <div className="space-y-4">
-        <h2 className="text-3xl lg:text-4xl font-heading font-black tracking-tight">Professional <span className="text-primary">Journey</span></h2>
-        <p className="text-muted-foreground max-w-2xl">My career path and the companies I've had the pleasure to work with.</p>
+        <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+          Experience & Leadership
+        </h2>
+        <p className="text-muted-foreground max-w-2xl text-lg font-medium opacity-80">
+          A track record of technical internships and community leadership roles.
+        </p>
       </div>
 
-      <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-linear-to-b before:from-transparent before:via-border before:to-transparent">
-        {experiences.map((exp, idx) => (
+      <div className="relative space-y-6 before:absolute before:inset-0 before:left-5 md:before:left-1/2 before:-translate-x-px before:h-full before:w-[1px] before:bg-border/60">
+        {[...experiences].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map((exp, idx) => (
           <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+            key={exp.id}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2, margin: "-100px 0px -100px 0px" }}
+            transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative flex items-start md:odd:flex-row-reverse group"
           >
-            {/* Dot */}
-            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-background bg-muted text-primary shadow md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 absolute left-0 md:left-1/2 -translate-x-1/2">
-              <Briefcase className="w-4 h-4" />
+            {/* Timeline Dot */}
+            <div className="absolute left-5 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-10 h-10 rounded-none border border-border bg-background group-hover:border-primary group-hover:bg-primary/5 transition-all duration-500 z-10">
+              <exp.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
             </div>
 
-            {/* Content */}
-            <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 lg:p-8 rounded-[2rem] border bg-card/20 backdrop-blur-xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
-                  <h3 className="text-xl font-bold font-heading">{exp.role}</h3>
-                  <Badge variant="secondary" className="w-fit rounded-lg">{exp.duration}</Badge>
-                </div>
-                
-                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-medium">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <ExternalLink className="w-3 h-3 text-primary" />
+            {/* Content Card */}
+            <div className="ml-16 md:ml-0 md:w-[calc(50%-3rem)] p-8 border border-border/50 bg-card/10 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 group-hover:bg-primary/[0.01]">
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="space-y-2">
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold text-primary bg-primary/5 px-2 py-0.5 border border-primary/20 w-fit">
+                    <Calendar className="w-3 h-3" />
+                    <span>{exp.duration}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground">{exp.role}</h3>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-medium">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-foreground font-bold">{exp.company}</span>
                     </div>
-                    <span>{exp.company}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    <span>{exp.location}</span>
+                    <div className="h-4 w-px bg-border/60" />
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 opacity-60" />
+                      <span>{exp.location}</span>
+                    </div>
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground leading-relaxed italic">{exp.description}</p>
+                {/* Description */}
+                <p className="text-[13px] text-muted-foreground font-medium leading-relaxed opacity-90">
+                  {exp.description}
+                </p>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.tech.map((t) => (
-                    <span key={t} className="text-[10px] font-black uppercase tracking-widest text-primary/60">{t}</span>
-                  ))}
+                {/* Contributions */}
+                <div className="space-y-3 pt-2">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Key Contributions</h4>
+                  <ul className="space-y-2.5">
+                    {exp.contributions.map((contribution, cIdx) => (
+                      <li key={cIdx} className="flex items-start gap-3 text-[13px] text-muted-foreground group/li">
+                        <CheckCircle2 className="w-4 h-4 text-primary/40 mt-0.5 flex-shrink-0 group-hover/li:text-primary transition-colors" />
+                        <span className="group-hover/li:text-foreground transition-colors leading-relaxed">{contribution}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+
+                {/* Tech Stack / Focus Areas */}
+                {(exp.tech || exp.focusAreas) && (
+                  <div className="pt-4 border-t border-border/30">
+                     <div className="flex flex-wrap gap-2">
+                        {(exp.tech || exp.focusAreas)?.map((item) => (
+                          <span 
+                            key={item} 
+                            className="px-2 py-1 bg-muted/30 border border-border/60 text-[10px] font-semibold text-muted-foreground hover:border-primary/40 hover:text-primary transition-all duration-300"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                     </div>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

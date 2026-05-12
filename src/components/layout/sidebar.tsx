@@ -1,10 +1,7 @@
-"use client"
-
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   User, 
-  Code2, 
   Briefcase, 
   Trophy, 
   Mail, 
@@ -19,15 +16,9 @@ import {
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-const navItems = [
-  { id: "about", icon: User, label: "Home", count: 1 },
-  { id: "skills", icon: Code2, label: "Skills", count: 12 },
-  { id: "projects", icon: LayoutDashboard, label: "Projects", count: 8 },
-  { id: "achievements", icon: Trophy, label: "Achievements", count: 5 },
-  { id: "experience", icon: Briefcase, label: "Experience", count: 3 },
-  { id: "contact", icon: Mail, label: "Contact", count: 1 },
-]
+import { achievements } from "@/data/achievements"
+import { projects } from "@/data/projects"
+import { experiences } from "@/data/experience"
 
 const contactData = [
   { icon: Mail, label: "Email", value: "divyajaisansaria503@gmail.com", href: "mailto:divyajaisansaria503@gmail.com" },
@@ -99,6 +90,14 @@ export function Sidebar({
   React.useEffect(() => {
     setMounted(true)
   }, [])
+
+  const navItems = [
+    { id: "about", icon: User, label: "Home", count: 1 },
+    { id: "projects", icon: LayoutDashboard, label: "Projects", count: projects.length },
+    { id: "achievements", icon: Trophy, label: "Achievements", count: achievements.length },
+    { id: "experience", icon: Briefcase, label: "Experience", count: experiences.length },
+    { id: "contact", icon: Mail, label: "Contact", count: 1 },
+  ]
 
   if (!mounted) {
     return (
