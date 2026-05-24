@@ -17,6 +17,15 @@ interface MainContentProps {
 
 export function MainContent({ children, activeSection, searchQuery, setSearchQuery }: MainContentProps) {
   const showHeader = activeSection !== "about" && activeSection !== "contact" && activeSection !== "achievements" && activeSection !== "experience"
+  const scrollRef = React.useRef<HTMLDivElement>(null)
+
+  // Auto-scroll to top on section change
+  React.useEffect(() => {
+    const viewport = scrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]')
+    if (viewport) {
+      viewport.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [activeSection])
 
   return (
     <main className="flex-1 h-screen overflow-hidden bg-background relative flex flex-col">
@@ -58,7 +67,7 @@ export function MainContent({ children, activeSection, searchQuery, setSearchQue
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] -z-10 rounded-full" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 blur-[120px] -z-10 rounded-full" />
         
-        <ScrollArea className="h-full">
+        <ScrollArea ref={scrollRef} className="h-full">
           <div className={cn(
             "mx-auto px-8 transition-all duration-500",
             (activeSection === "about" || activeSection === "contact" || activeSection === "experience") ? "max-w-7xl py-12" : "max-w-5xl",

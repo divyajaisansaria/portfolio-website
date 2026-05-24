@@ -34,7 +34,7 @@ export default function Home() {
       case "experience": return <ExperienceSection />
       case "achievements": return <AchievementsSection activeFile={activeFile} setActiveFile={setActiveFile} />
       case "contact": return <ContactSection />
-      default: return <AboutSection />
+      default: return <AboutSection setActiveSection={setActiveSection} />
     }
   }
 

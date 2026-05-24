@@ -59,6 +59,11 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@divyajaisansaria", // User should update this
   },
+  icons: {
+    icon: "/images/profile.jpeg",
+    shortcut: "/images/profile.jpeg",
+    apple: "/images/profile.jpeg",
+  },
   robots: {
     index: true,
     follow: true,

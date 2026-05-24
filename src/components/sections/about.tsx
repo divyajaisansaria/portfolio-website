@@ -354,8 +354,11 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
 
         <Button 
           size="lg" 
-          onClick={() => setActiveSection?.("contact")}
-          className="rounded-full px-10 h-14 text-sm font-black gap-2 bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95"
+          onClick={() => {
+            console.log("Navigating to contact section");
+            setActiveSection?.("contact");
+          }}
+          className="relative z-20 rounded-full px-10 h-14 text-sm font-black gap-2 bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95"
         >
           Get In Touch
           <ArrowRight className="w-4 h-4" />
