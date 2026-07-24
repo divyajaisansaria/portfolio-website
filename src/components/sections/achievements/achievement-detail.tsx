@@ -116,7 +116,7 @@ export const AchievementDetail = ({ item }: AchievementDetailProps) => {
                 <Cpu className="w-4 h-4 text-primary" />
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">The Problem</h3>
               </div>
-              <p className="text-xl md:text-2xl font-bold text-foreground leading-tight tracking-tight">
+              <p className="text-sm font-bold text-foreground leading-relaxed">
                 {details.problemStatement}
               </p>
             </div>

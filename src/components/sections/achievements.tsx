@@ -29,8 +29,8 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
-      items = items.filter(item => 
-        item.title.toLowerCase().includes(q) || 
+      items = items.filter(item =>
+        item.title.toLowerCase().includes(q) ||
         item.subtitle.toLowerCase().includes(q) ||
         item.description.toLowerCase().includes(q)
       )
@@ -56,7 +56,7 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
         {/* Search Bar */}
         <div className="relative w-full lg:flex-1 group">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground/60 group-focus-within:text-primary transition-colors" />
-          <Input 
+          <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search"
@@ -67,35 +67,35 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
         <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
           {/* Category Dropdown */}
           <div className="relative group flex-1 lg:flex-none min-w-[130px]">
-             <select 
+            <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value as CategoryType)}
               className="w-full h-8 pl-3 pr-8 bg-muted/10 border border-border/60 rounded-none text-[11px] font-medium appearance-none focus:outline-none focus:ring-1 focus:ring-primary/40 transition-all cursor-pointer"
-             >
-                <option value="All Categories">All Categories</option>
-                <option value="Hackathons">Hackathons</option>
-                <option value="Publications">Research Papers</option>
-                <option value="Certifications">Certifications</option>
-             </select>
-             <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground/60 pointer-events-none group-hover:text-primary transition-colors" />
+            >
+              <option value="All Categories">All Categories</option>
+              <option value="Hackathons">Hackathons</option>
+              <option value="Publications">Research Papers</option>
+              <option value="Certifications">Certifications</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground/60 pointer-events-none group-hover:text-primary transition-colors" />
           </div>
 
           {/* Sort Dropdown */}
           <div className="relative group flex-1 lg:flex-none min-w-[130px]">
-             <select 
+            <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
               className="w-full h-8 pl-3 pr-8 bg-muted/10 border border-border/60 rounded-none text-[11px] font-medium appearance-none focus:outline-none focus:ring-1 focus:ring-primary/40 transition-all cursor-pointer"
-             >
-                <option value="newest">Latest First</option>
-                <option value="oldest">Oldest First</option>
-             </select>
-             <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground/60 pointer-events-none group-hover:text-primary transition-colors" />
+            >
+              <option value="newest">Latest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground/60 pointer-events-none group-hover:text-primary transition-colors" />
           </div>
 
           {/* View Mode Toggles */}
           <div className="flex items-center bg-muted/10 border border-border/60 p-0.5 rounded-none h-8">
-            <button 
+            <button
               onClick={() => setViewMode('grid')}
               className={cn(
                 "h-full px-2 transition-all rounded-none",
@@ -105,7 +105,7 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
             >
               <LayoutGrid className="w-3.5 h-3.5" />
             </button>
-            <button 
+            <button
               onClick={() => setViewMode('list')}
               className={cn(
                 "h-full px-2 transition-all rounded-none",
@@ -148,8 +148,8 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
             <div className="flex flex-col items-center justify-center py-16 border border-dashed border-border rounded-none bg-muted/5">
               <SlidersHorizontal className="w-10 h-10 text-muted-foreground/20 mb-3" />
               <p className="text-sm font-medium text-muted-foreground text-center">No achievements match your search.</p>
-              <button 
-                onClick={() => {setSearchQuery(""); setCategoryFilter('All Categories')}}
+              <button
+                onClick={() => { setSearchQuery(""); setCategoryFilter('All Categories') }}
                 className="mt-3 text-xs font-semibold text-primary hover:underline"
               >
                 Clear all filters
@@ -158,18 +158,18 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
           ) : viewMode === 'grid' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pb-12">
               {items.map((item, idx) => (
-                <AchievementCard 
-                  key={item.id} 
-                  item={item} 
-                  idx={idx} 
-                  onClick={handleItemClick} 
+                <AchievementCard
+                  key={item.id}
+                  item={item}
+                  idx={idx}
+                  onClick={handleItemClick}
                 />
               ))}
             </div>
           ) : (
             <div className="space-y-2 pb-12">
               {items.map((item, idx) => (
-                <div 
+                <div
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
                   className="p-5 border border-border bg-card/10 hover:bg-primary/[0.02] transition-all flex items-center justify-between group cursor-pointer rounded-none"
@@ -219,9 +219,9 @@ export function AchievementsSection({ activeFile, setActiveFile }: AchievementsS
         'Publications': "Research papers and technical publications on software and AI.",
         'Certifications': "Professional certifications from industry-leading organizations."
       }
-      
+
       const displayCategory = category as Exclude<CategoryType, 'All Categories'>
-      
+
       return (
         <section className="space-y-2">
           {renderHeader(category === 'Publications' ? 'Research Papers' : category, descriptionMap[displayCategory])}

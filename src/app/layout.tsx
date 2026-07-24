@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({
-  variable: "--font-inter",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-inter", // keeping variable same so tailwind mapping works
   subsets: ["latin"],
   display: "swap",
 });
@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${inter.variable} font-sans antialiased`}
+        className={`${jakarta.variable} font-sans antialiased text-[15px] leading-relaxed`}
       >
         <ThemeProvider
           attribute="class"

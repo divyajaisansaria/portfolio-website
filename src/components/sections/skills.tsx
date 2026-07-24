@@ -45,6 +45,7 @@ const skillsData: Record<string, Skill[]> = {
     { name: "React", icon: "https://cdn.simpleicons.org/react" },
     { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs" },
     { name: "Tailwind", icon: "https://cdn.simpleicons.org/tailwindcss" },
+    { name: "Angular", icon: "https://cdn.simpleicons.org/angular" },
   ],
   backend: [
     { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs" },
@@ -81,6 +82,7 @@ const skillsData: Record<string, Skill[]> = {
     { name: "GitHub", icon: "https://cdn.simpleicons.org/github" },
     { name: "VS Code", icon: "https://cdn.simpleicons.org/visualstudiocode" },
     { name: "Postman", icon: "https://cdn.simpleicons.org/postman" },
+    { name: "Playwright", icon: "https://cdn.simpleicons.org/playwright" },
   ],
   database: [
     { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb" },
@@ -108,7 +110,7 @@ const SkillIcon = ({ skill }: { skill: Skill }) => {
   }
 
   return (
-    <span className="text-2xl font-black text-primary/40 group-hover:text-primary transition-colors">
+    <span className="text-2xl font-bold text-primary/40 group-hover:text-primary transition-colors">
       {skill.name.charAt(0)}
     </span>
   )
@@ -124,7 +126,7 @@ export function SkillsSection() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-[10px] font-black uppercase tracking-[0.3em] text-primary"
+          className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary"
         >
           My Skills
         </motion.div>
@@ -133,7 +135,7 @@ export function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl lg:text-5xl font-black tracking-tight"
+          className="text-4xl lg:text-5xl font-bold tracking-tight"
         >
           Technologies & Tools
         </motion.h2>
@@ -147,7 +149,7 @@ export function SkillsSection() {
             key={category.id}
             onClick={() => setActiveCategory(category.id)}
             className={cn(
-              "px-5 py-2.5 rounded-full text-[11px] font-black transition-all duration-300 border uppercase tracking-widest",
+              "px-5 py-2.5 rounded-full text-[11px] font-bold transition-all duration-300 border uppercase tracking-widest",
               activeCategory === category.id
                 ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20 scale-105"
                 : "bg-card/40 border-border/50 text-muted-foreground hover:border-primary/30 hover:text-foreground"
@@ -163,18 +165,18 @@ export function SkillsSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
           >
             {skillsData[activeCategory].map((skill, index) => (
               <motion.div
                 key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeInOut" }}
                 className="group p-8 rounded-[2.5rem] bg-card/20 backdrop-blur-xl border border-border/40 hover:border-primary/40 hover:bg-card/30 transition-all duration-500 flex flex-col items-center justify-center text-center gap-6 min-h-[160px] relative overflow-hidden"
               >
                 {/* Background Glow */}
@@ -183,7 +185,7 @@ export function SkillsSection() {
                 <div className="w-16 h-16 rounded-2xl bg-background/50 flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform duration-500 shadow-sm border border-border/20">
                   <SkillIcon skill={skill} />
                 </div>
-                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground group-hover:text-foreground transition-colors relative z-10">
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-foreground transition-colors relative z-10">
                   {skill.name}
                 </span>
               </motion.div>

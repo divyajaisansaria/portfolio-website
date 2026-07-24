@@ -3,10 +3,10 @@
 import * as THREE from "three"
 import React, { Suspense, useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { 
-  ContactShadows, 
-  Environment, 
-  Float, 
+import {
+  ContactShadows,
+  Environment,
+  Float,
   PresentationControls,
   Html
 } from "@react-three/drei"
@@ -23,18 +23,18 @@ if (typeof window !== "undefined") {
 function ProceduralLaptop({ open }: { open: boolean }) {
   const group = useRef<THREE.Group>(null!)
   const lid = useRef<THREE.Group>(null!)
-  
+
   useFrame((state) => {
     // Use performance.now() to avoid THREE.Clock deprecation warnings and R3F state issues
     // performance.now() returns milliseconds, we convert to seconds for animation timing
     const t = performance.now() / 1000
-    
+
     if (lid.current) {
       // Opening animation for the lid
       const targetRotation = open ? -0.2 : -Math.PI / 2 - 0.5
       lid.current.rotation.x = THREE.MathUtils.lerp(lid.current.rotation.x, targetRotation, 0.1)
     }
-    
+
     if (group.current) {
       // Floating animation
       group.current.position.y = Math.sin(t) * 0.1
@@ -48,7 +48,7 @@ function ProceduralLaptop({ open }: { open: boolean }) {
         <boxGeometry args={[4, 0.15, 3]} />
         <meshStandardMaterial color="#222" metalness={0.8} roughness={0.2} />
       </mesh>
-      
+
       {/* Trackpad area detail */}
       <mesh position={[0, 0, 0.8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[1, 0.6]} />
@@ -68,7 +68,7 @@ function ProceduralLaptop({ open }: { open: boolean }) {
           <boxGeometry args={[4, 3, 0.1]} />
           <meshStandardMaterial color="#222" metalness={0.8} roughness={0.2} />
         </mesh>
-        
+
         {/* Screen */}
         <mesh position={[0, 1.5, 0.01]}>
           <planeGeometry args={[3.8, 2.8]} />
@@ -81,24 +81,24 @@ function ProceduralLaptop({ open }: { open: boolean }) {
             position={[0, 0, 0.01]}
           >
             <div className="w-full h-full bg-linear-to-br from-indigo-900 via-purple-900 to-black flex flex-col items-center justify-center p-8 text-white text-center">
-               <div className="relative w-full h-full flex flex-col items-center justify-center border border-white/10 rounded-xl bg-black/40 backdrop-blur-3xl overflow-hidden">
-                  <div className="absolute top-0 inset-x-0 h-1 bg-primary animate-gradient-x" />
-                  <div className="text-3xl font-black mb-4 tracking-tighter">PROJECT_ALPHA</div>
-                  <div className="text-xs opacity-50 uppercase tracking-[0.2em] mb-8">System Deployment Initialized</div>
-                  
-                  <div className="grid grid-cols-3 gap-4 w-full px-8">
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="h-16 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                        <div className="w-8 h-1 bg-white/20 rounded-full" />
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-8 flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest">Live Terminal Connected</span>
-                  </div>
-               </div>
+              <div className="relative w-full h-full flex flex-col items-center justify-center border border-white/10 rounded-xl bg-black/40 backdrop-blur-3xl overflow-hidden">
+                <div className="absolute top-0 inset-x-0 h-1 bg-primary animate-gradient-x" />
+                <div className="text-3xl font-bold mb-4 tracking-tighter">PROJECT_ALPHA</div>
+                <div className="text-xs opacity-50 uppercase tracking-[0.2em] mb-8">System Deployment Initialized</div>
+
+                <div className="grid grid-cols-3 gap-4 w-full px-8">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="h-16 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                      <div className="w-8 h-1 bg-white/20 rounded-full" />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest">Live Terminal Connected</span>
+                </div>
+              </div>
             </div>
           </Html>
         </mesh>
@@ -122,7 +122,7 @@ export function Laptop3D({ isOpen = true }: { isOpen?: boolean }) {
         <ambientLight intensity={1.5} />
         <pointLight position={[10, 10, 10]} intensity={2} />
         <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
-        
+
         <Suspense fallback={null}>
           <PresentationControls
             global
@@ -137,7 +137,7 @@ export function Laptop3D({ isOpen = true }: { isOpen?: boolean }) {
           </PresentationControls>
         </Suspense>
         <ContactShadows position={[0, -1, 0]} opacity={0.4} scale={10} blur={2.5} far={4} />
-        
+
         {/* Enhanced local lighting to replace external Environment HDR */}
         <mesh scale={20}>
           <sphereGeometry args={[1, 64, 64]} />

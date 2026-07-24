@@ -69,7 +69,7 @@ export const AchievementCard = ({ item, idx, onClick }: AchievementCardProps) =>
             {/* Footer */}
             <div className="flex items-center justify-between pt-4 border-t border-border/30">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-foreground/70">View Case Study</span>
+                <span className="text-[11px] font-semibold text-foreground/70">View in Detail</span>
               </div>
               <div className="w-6 h-6 flex items-center justify-center border border-border/60 rounded-md group-hover:border-primary/60 group-hover:bg-primary text-muted-foreground group-hover:text-primary-foreground transition-all duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />

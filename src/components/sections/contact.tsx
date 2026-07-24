@@ -74,16 +74,16 @@ export function ContactSection() {
         >
           Contact
         </motion.div>
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl lg:text-4xl font-sans font-black tracking-tight uppercase"
+          className="text-3xl lg:text-4xl font-sans font-bold tracking-tight uppercase"
         >
           Get In Touch
         </motion.h2>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -106,52 +106,52 @@ export function ContactSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Your Name</label>
-                <Input 
+                <Input
                   required
-                  placeholder="John Doe" 
+                  placeholder="John Doe"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium" 
+                  className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium"
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Email Address</label>
-                <Input 
+                <Input
                   required
-                  type="email" 
-                  placeholder="john@example.com" 
+                  type="email"
+                  placeholder="john@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium" 
+                  className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium"
                 />
               </div>
             </div>
             <div className="space-y-2">
               <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Subject</label>
-              <Input 
+              <Input
                 required
-                placeholder="Inquiry about project" 
+                placeholder="Inquiry about project"
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium" 
+                className="h-12 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 font-medium"
               />
             </div>
             <div className="space-y-2">
               <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Message</label>
-              <Textarea 
+              <Textarea
                 required
-                placeholder="How can I help you?" 
+                placeholder="How can I help you?"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="min-h-[160px] rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 resize-none p-4 font-medium" 
+                className="min-h-[160px] rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/20 resize-none p-4 font-medium"
               />
             </div>
-            
-            <Button 
+
+            <Button
               type="submit"
-              disabled={status === 'sending'} 
+              disabled={status === 'sending'}
               className={cn(
-                "w-full h-12 rounded-xl text-xs font-black uppercase tracking-widest gap-2 transition-all duration-300",
+                "w-full h-12 rounded-xl text-xs font-bold uppercase tracking-widest gap-2 transition-all duration-300",
                 status === 'success' && "bg-green-600 hover:bg-green-600",
                 status === 'error' && "bg-destructive hover:bg-destructive"
               )}
@@ -192,28 +192,28 @@ export function ContactSection() {
           transition={{ delay: 0.1 }}
           className="lg:col-span-5 flex flex-col gap-4"
         >
-          <ContactInfoCard 
-            icon={Mail} 
-            label="Email" 
-            value="divyajaisansaria503@gmail.com" 
+          <ContactInfoCard
+            icon={Mail}
+            label="Email"
+            value="divyajaisansaria503@gmail.com"
             href="mailto:divyajaisansaria503@gmail.com"
           />
-          <ContactInfoCard 
-            icon={MapPin} 
-            label="Location" 
-            value="Remote / Bangalore / Surat, India" 
+          <ContactInfoCard
+            icon={MapPin}
+            label="Location"
+            value="Remote / Bangalore / Surat, India"
           />
-          <ContactInfoCard 
-            icon={LinkedinIcon} 
-            label="LinkedIn" 
-            value="divya-jaisansaria-7768342a9" 
-            href="https://www.linkedin.com/in/divya-jaisansaria-7768342a9" 
+          <ContactInfoCard
+            icon={LinkedinIcon}
+            label="LinkedIn"
+            value="divya-jaisansaria-7768342a9"
+            href="https://www.linkedin.com/in/divya-jaisansaria-7768342a9"
           />
-          <ContactInfoCard 
-            icon={WhatsAppIcon} 
-            label="WhatsApp" 
-            value="+91 9413185801" 
-            href="https://wa.me/919413185801" 
+          <ContactInfoCard
+            icon={WhatsAppIcon}
+            label="WhatsApp"
+            value="+91 9413185801"
+            href="https://wa.me/919413185801"
           />
         </motion.div>
       </div>
@@ -223,9 +223,9 @@ export function ContactSection() {
 
 function ContactInfoCard({ icon: Icon, label, value, href }: { icon: any, label: string, value: string, href?: string }) {
   const Wrapper = href ? 'a' : 'div'
-  
+
   return (
-    <Wrapper 
+    <Wrapper
       href={href}
       target={href?.startsWith('http') ? '_blank' : undefined}
       className={cn(

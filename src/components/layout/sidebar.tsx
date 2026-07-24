@@ -79,10 +79,14 @@ function RotatingRoles() {
 
 export function Sidebar({ 
   activeSection, 
-  setActiveSection 
+  setActiveSection,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen
 }: { 
   activeSection: string; 
-  setActiveSection: (id: string) => void 
+  setActiveSection: (id: string) => void;
+  isMobileMenuOpen?: boolean;
+  setIsMobileMenuOpen?: (val: boolean) => void;
 }) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
@@ -101,14 +105,33 @@ export function Sidebar({
 
   if (!mounted) {
     return (
-      <aside className="w-[280px] h-screen sticky top-0 flex flex-col border-r bg-background p-6 gap-8">
+      <aside className="w-[250px] h-screen sticky top-0 flex flex-col border-r bg-background p-6 gap-8 shrink-0">
         <div className="flex-1" />
       </aside>
     )
   }
 
   return (
-    <aside className="w-[280px] h-screen sticky top-0 flex flex-col border-r bg-background overflow-y-auto no-scrollbar">
+    <>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen && setIsMobileMenuOpen(false)}
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <aside 
+        className={cn(
+          "w-[250px] h-screen flex flex-col border-r bg-background overflow-y-auto no-scrollbar shrink-0",
+          "fixed top-0 left-0 z-50 md:sticky md:z-auto transition-transform duration-300 ease-in-out",
+          !isMobileMenuOpen && "-translate-x-full md:translate-x-0"
+        )}
+      >
       <div className="p-6 min-h-full flex flex-col">
         {/* Profile Section & Theme Toggle */}
         <div className="flex items-start justify-between mb-10">
@@ -163,7 +186,10 @@ export function Sidebar({
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveSection(item.id)}
+              onClick={() => {
+                setActiveSection(item.id)
+                if (setIsMobileMenuOpen) setIsMobileMenuOpen(false)
+              }}
               className={cn(
                 "group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                 activeSection === item.id 
@@ -248,6 +274,7 @@ export function Sidebar({
           </a>
         </div>
       </div>
-    </aside>
+      </aside>
+    </>
   )
 }

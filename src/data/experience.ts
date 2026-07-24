@@ -16,8 +16,24 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: "exp-wellsfargo",
+    company: "Wells Fargo",
+    role: "Technology Program Intern",
+    duration: "May 2026 – July 2026",
+    location: "Bangalore, India",
+    description: "Contributed to DocForce migration, frontend feature development, and robust E2E test automation.",
+    contributions: [
+      "Accelerated the DocForce migration by closing 7+ Jira stories, implementing 20+ frontend features and fixes deployed successfully to production.",
+      "Engineered 100+ Playwright E2E test cases spanning 40+ critical user journeys and 8+ application modules, substantially improving automated regression coverage and release confidence.",
+      "Automated test generation using Playwright MCP Server, reducing manual testing effort by 40% and speeding up debugging workflows."
+    ],
+    tech: ["Playwright", "React", "Jira", "Testing"],
+    icon: Briefcase,
+    timestamp: "2026-05-01"
+  },
+  {
     id: "exp-svnit-coordinator",
-    company: "NIT Surat",
+    company: "AI Department",
     role: "Training & Placement Coordinator",
     duration: "Jan 2025 – Present",
     location: "SVNIT, Surat",

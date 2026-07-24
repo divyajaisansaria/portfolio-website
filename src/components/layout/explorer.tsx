@@ -2,14 +2,14 @@
 
 import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { 
-  ChevronRight, 
+import {
+  ChevronRight,
   ChevronDown,
-  Folder, 
-  FileCode, 
-  FileText, 
-  Layers, 
-  Cpu, 
+  Folder,
+  FileCode,
+  FileText,
+  Layers,
+  Cpu,
   Globe,
   Database,
   Trophy,
@@ -22,6 +22,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { achievements } from "@/data/achievements"
+import { projects } from "@/data/projects"
 
 interface ExplorerItem {
   label: string
@@ -46,19 +47,19 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
 
   // A folder matches if its own title matches OR any of its children match
   const folderMatches = title.toLowerCase().includes(searchQuery.toLowerCase())
-  
+
   const filteredItems = items.filter(item => {
     // If the parent folder matches, show everything
     if (folderMatches) return true
-    
+
     // Check if the item itself matches
     if (item.label.toLowerCase().includes(searchQuery.toLowerCase())) return true
-    
+
     // If it's a folder, check if any of its descendants match (recursive-like check)
     if (item.items) {
       const checkDescendants = (subItems: ExplorerItem[]): boolean => {
-        return subItems.some(sub => 
-          sub.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        return subItems.some(sub =>
+          sub.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (sub.items && checkDescendants(sub.items))
         )
       }
@@ -98,7 +99,7 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
           {folderMatches ? items.length : filteredItems.length}
         </span>
       </button>
-      
+
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -111,10 +112,10 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
             {filteredItems.map((item, idx) => {
               if (item.items) {
                 return (
-                  <FolderSection 
-                    key={idx} 
-                    title={item.label} 
-                    items={item.items} 
+                  <FolderSection
+                    key={idx}
+                    title={item.label}
+                    items={item.items}
                     activeFile={activeFile}
                     onFileClick={onFileClick}
                     level={level + 1}
@@ -126,7 +127,7 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
               const isLink = !!item.href
               const Tag = isLink ? 'a' : 'button'
               const isActive = item.id === activeFile
-              
+
               return (
                 <Tag
                   key={idx}
@@ -136,8 +137,8 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
                   onClick={() => !isLink && item.id && onFileClick?.(item.id)}
                   className={cn(
                     "relative flex items-center gap-2.5 py-1.5 transition-all group text-left pr-3",
-                    isActive 
-                      ? "bg-primary/5 text-primary" 
+                    isActive
+                      ? "bg-primary/5 text-primary"
                       : "hover:bg-muted/20 text-muted-foreground hover:text-foreground"
                   )}
                   style={{ paddingLeft: `${(level + 1) * 18 + 24}px` }}
@@ -163,11 +164,11 @@ const FolderSection = ({ title, items, activeFile, onFileClick, level = 0, searc
   )
 }
 
-export function Explorer({ 
-  activeSection, 
-  activeFile, 
-  onFileClick 
-}: { 
+export function Explorer({
+  activeSection,
+  activeFile,
+  onFileClick
+}: {
   activeSection: string
   activeFile?: string
   onFileClick?: (id: string) => void
@@ -177,25 +178,64 @@ export function Explorer({
   const getExplorerContent = () => {
     switch (activeSection) {
       case "projects":
+        const showProjOverview = !searchQuery || "overview".includes(searchQuery.toLowerCase())
         return (
-          <FolderSection 
-            title="Projects" 
-            activeFile={activeFile}
-            onFileClick={onFileClick}
-            searchQuery={searchQuery}
-            items={[
-              { id: "all-projects", label: "All Projects", icon: Globe, count: 8 },
-              { id: "rag-systems", label: "RAG Systems", icon: Cpu },
-              { id: "ai-ml-models", label: "AI/ML Models", icon: Database },
-              { id: "e-commerce", label: "E-Commerce", icon: Layers },
-              { id: "full-stack", label: "Full Stack", icon: FileCode },
-            ]} 
-          />
+          <div className="flex flex-col">
+            {showProjOverview && (
+              <button
+                onClick={() => onFileClick?.("overview")}
+                className={cn(
+                  "relative flex items-center gap-3 px-3 py-2.5 transition-all group text-left",
+                  activeFile === "overview"
+                    ? "bg-primary/5 text-primary"
+                    : "hover:bg-muted/30 text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {activeFile === "overview" && (
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full" />
+                )}
+                <FileCode className={cn("w-4 h-4", activeFile === "overview" ? "text-primary" : "opacity-40")} />
+                <span className="text-[13px] font-medium flex-1">Overview</span>
+                <span className="text-[10px] text-muted-foreground font-medium pr-2">{projects.length}</span>
+              </button>
+            )}
+
+            <FolderSection
+              title="AI/ML Models"
+              activeFile={activeFile}
+              onFileClick={onFileClick}
+              searchQuery={searchQuery}
+              items={projects
+                .filter(p => p.category === "AI/ML Models")
+                .map(p => ({ id: p.id, label: p.title, icon: p.icon }))
+              }
+            />
+            <FolderSection
+              title="RAG Systems"
+              activeFile={activeFile}
+              onFileClick={onFileClick}
+              searchQuery={searchQuery}
+              items={projects
+                .filter(p => p.category === "RAG Systems")
+                .map(p => ({ id: p.id, label: p.title, icon: p.icon }))
+              }
+            />
+            <FolderSection
+              title="Full Stack"
+              activeFile={activeFile}
+              onFileClick={onFileClick}
+              searchQuery={searchQuery}
+              items={projects
+                .filter(p => p.category === "Full Stack")
+                .map(p => ({ id: p.id, label: p.title, icon: p.icon }))
+              }
+            />
+          </div>
         )
       case "skills":
         return (
-          <FolderSection 
-            title="Skills & Tools" 
+          <FolderSection
+            title="Skills & Tools"
             activeFile={activeFile}
             onFileClick={onFileClick}
             searchQuery={searchQuery}
@@ -203,27 +243,27 @@ export function Explorer({
               { id: "frontend", label: "Frontend", icon: FileCode },
               { id: "backend", label: "Backend", icon: Database },
               { id: "devops", label: "DevOps", icon: Globe },
-            ]} 
+            ]}
           />
         )
       case "experience":
         return (
-          <FolderSection 
-            title="Experience" 
+          <FolderSection
+            title="Experience"
             activeFile={activeFile}
             onFileClick={onFileClick}
             searchQuery={searchQuery}
             items={[
               { id: "resume", label: "Resume.pdf", icon: FileText, href: "/resume.pdf" },
               { id: "work-history", label: "Work History", icon: Layers },
-            ]} 
+            ]}
           />
         )
       case "achievements":
         const hackathonCount = achievements.filter(a => a.category === "Hackathons").length
         const paperCount = achievements.filter(a => a.category === "Publications").length
         const certCount = achievements.filter(a => a.category === "Certifications").length
-        
+
         const showOverview = !searchQuery || "overview".includes(searchQuery.toLowerCase())
         return (
           <div className="flex flex-col">
@@ -232,8 +272,8 @@ export function Explorer({
                 onClick={() => onFileClick?.("overview")}
                 className={cn(
                   "relative flex items-center gap-3 px-3 py-2.5 transition-all group text-left",
-                  activeFile === "overview" 
-                    ? "bg-primary/5 text-primary" 
+                  activeFile === "overview"
+                    ? "bg-primary/5 text-primary"
                     : "hover:bg-muted/30 text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -245,43 +285,43 @@ export function Explorer({
                 <span className="text-[10px] text-muted-foreground font-medium pr-2">{achievements.length}</span>
               </button>
             )}
-            
-            <FolderSection 
-              title="Hackathons" 
+
+            <FolderSection
+              title="Hackathons"
               activeFile={activeFile}
               onFileClick={onFileClick}
               searchQuery={searchQuery}
               items={achievements
                 .filter(a => a.category === "Hackathons")
                 .map(a => ({ id: a.id, label: a.title, icon: FileText }))
-              } 
+              }
             />
-            <FolderSection 
-              title="Research Papers" 
+            <FolderSection
+              title="Research Papers"
               activeFile={activeFile}
               onFileClick={onFileClick}
               searchQuery={searchQuery}
               items={achievements
                 .filter(a => a.category === "Publications")
                 .map(a => ({ id: a.id, label: a.title, icon: FileCode }))
-              } 
+              }
             />
-            <FolderSection 
-              title="Certifications" 
+            <FolderSection
+              title="Certifications"
               activeFile={activeFile}
               onFileClick={onFileClick}
               searchQuery={searchQuery}
               items={achievements
                 .filter(a => a.category === "Certifications")
                 .map(a => ({ id: a.id, label: a.title, icon: FileText }))
-              } 
+              }
             />
           </div>
         )
       case "contact":
         return (
-          <FolderSection 
-            title="Communication" 
+          <FolderSection
+            title="Communication"
             activeFile={activeFile}
             onFileClick={onFileClick}
             searchQuery={searchQuery}
@@ -289,7 +329,7 @@ export function Explorer({
               { id: "email", label: "Email", icon: Globe },
               { id: "socials", label: "Socials", icon: Globe },
               { id: "form", label: "Form", icon: FileText },
-            ]} 
+            ]}
           />
         )
       default:
@@ -309,9 +349,15 @@ export function Explorer({
   }
 
   return (
-    <div className="w-80 h-screen border-r bg-card/10 flex flex-col hidden lg:flex">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
+      className="w-[260px] h-screen border-r bg-card/10 flex flex-col hidden lg:flex overflow-hidden shrink-0"
+    >
       {/* Header Title Area */}
-      <div className="p-4 border-b">
+      <div className="h-[72px] px-4 flex items-center border-b">
         <h3 className="text-[14px] font-bold text-foreground">{getTitle()}</h3>
       </div>
 
@@ -319,7 +365,7 @@ export function Explorer({
       <div className="p-3">
         <div className="relative group">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-          <Input 
+          <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search folder or file"
@@ -327,7 +373,7 @@ export function Explorer({
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
             {searchQuery ? (
-              <button 
+              <button
                 onClick={() => setSearchQuery("")}
                 className="p-1 hover:bg-muted rounded-md transition-colors"
               >
@@ -367,7 +413,7 @@ export function Explorer({
           <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Active Workspace</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

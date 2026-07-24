@@ -17,13 +17,13 @@ export function ExperienceSection() {
       </div>
 
       <div className="relative space-y-6 before:absolute before:inset-0 before:left-5 md:before:left-1/2 before:-translate-x-px before:h-full before:w-[1px] before:bg-border/60">
-        {[...experiences].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map((exp, idx) => (
+        {[...experiences].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((exp, idx) => (
           <motion.div
             key={exp.id}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.2, margin: "-100px 0px -100px 0px" }}
-            transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ type: "spring", stiffness: 60, damping: 20, delay: idx * 0.1 }}
             className="relative flex items-start md:odd:flex-row-reverse group"
           >
             {/* Timeline Dot */}
@@ -32,7 +32,7 @@ export function ExperienceSection() {
             </div>
 
             {/* Content Card */}
-            <div className="ml-16 md:ml-0 md:w-[calc(50%-3rem)] p-8 border border-border/50 rounded-xl bg-card/10 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 group-hover:bg-primary/[0.01]">
+            <div className="ml-14 md:ml-0 md:w-[calc(50%-3rem)] p-5 md:p-8 border border-border/50 rounded-xl bg-card/10 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 group-hover:bg-primary/[0.01]">
               <div className="space-y-6">
                 {/* Header */}
                 <div className="space-y-2">
@@ -40,7 +40,7 @@ export function ExperienceSection() {
                     <Calendar className="w-3 h-3" />
                     <span>{exp.duration}</span>
                   </div>
-                  <h3 className="text-3xl font-bold tracking-tight text-foreground">{exp.role}</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{exp.role}</h3>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-medium">
                     <div className="flex items-center gap-1.5">
                       <span className="text-foreground font-bold">{exp.company}</span>

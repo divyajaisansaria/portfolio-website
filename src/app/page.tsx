@@ -17,10 +17,11 @@ export default function Home() {
   const [activeSection, setActiveSection] = React.useState("about")
   const [activeFile, setActiveFile] = React.useState<string | undefined>("overview")
   const [searchQuery, setSearchQuery] = React.useState("")
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
   // Update active file when section changes
   React.useEffect(() => {
-    if (activeSection === "achievements") {
+    if (activeSection === "achievements" || activeSection === "projects") {
       setActiveFile("overview")
     } else {
       setActiveFile(undefined)
@@ -30,7 +31,7 @@ export default function Home() {
   const renderSection = () => {
     switch (activeSection) {
       case "about": return <AboutSection setActiveSection={setActiveSection} />
-      case "projects": return <ProjectsSection />
+      case "projects": return <ProjectsSection activeFile={activeFile} setActiveFile={setActiveFile} />
       case "experience": return <ExperienceSection />
       case "achievements": return <AchievementsSection activeFile={activeFile} setActiveFile={setActiveFile} />
       case "contact": return <ContactSection />
@@ -45,34 +46,35 @@ export default function Home() {
       {/* 3-Column Layout */}
       
       {/* Column 1: Sidebar (Sticky/Fixed) */}
-      <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <Sidebar 
+        activeSection={activeSection} 
+        setActiveSection={setActiveSection} 
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       {/* Column 2: Explorer (Conditional) */}
-      {showExplorer && (
-        <Explorer 
-          activeSection={activeSection} 
-          activeFile={activeFile}
-          onFileClick={(id) => setActiveFile(id)}
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {showExplorer && (
+          <Explorer 
+            activeSection={activeSection} 
+            activeFile={activeFile}
+            onFileClick={(id) => setActiveFile(id)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Column 3: Main Content (Active View) */}
       <MainContent 
         activeSection={activeSection} 
+        activeFile={activeFile}
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${activeSection}-${activeFile}`}
-            initial={{ opacity: 0, y: 10, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.99 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-          >
-            {renderSection()}
-          </motion.div>
-        </AnimatePresence>
+        <div className="h-full">
+          {renderSection()}
+        </div>
       </MainContent>
     </div>
   );

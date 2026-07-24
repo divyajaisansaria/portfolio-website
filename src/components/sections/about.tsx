@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from "react"
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion"
-import { 
-  Download, 
-  Sparkles, 
-  Code2, 
-  Rocket, 
-  Briefcase, 
-  Users, 
-  Star, 
-  GitBranch, 
+import {
+  Download,
+  Sparkles,
+  Code2,
+  Rocket,
+  Briefcase,
+  Users,
+  Star,
+  GitBranch,
   Terminal,
   GraduationCap,
   Quote,
@@ -32,7 +32,7 @@ const Counter = ({ value }: { value: string }) => {
   const rounded = useTransform(count, (latest) => Math.round(latest))
 
   useEffect(() => {
-    const controls = animate(count, numericValue, { 
+    const controls = animate(count, numericValue, {
       duration: 2,
       ease: "easeOut",
       delay: 0.5
@@ -47,20 +47,20 @@ const Counter = ({ value }: { value: string }) => {
 
 const HighlightCard = ({ label, value, index, icon: Icon }: { label: string; value: string; index: number; icon: any }) => {
   const suffix = value.replace(/[0-9]/g, "")
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.1 * index }}
-      className="relative p-6 rounded-xl bg-card/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group overflow-hidden"
+      className="relative p-4 md:p-6 rounded-xl bg-card/40 border border-border/50 hover:border-primary/30 transition-all duration-300 group overflow-hidden"
     >
       <div className="absolute -right-2 -top-2 opacity-5 group-hover:opacity-10 group-hover:scale-125 transition-all duration-500">
         <Icon className="w-16 h-16 text-primary" />
       </div>
       <div className="relative z-10">
-        <div className="text-3xl font-black text-primary mb-2 tracking-tighter group-hover:translate-x-1 transition-transform">
+        <div className="text-3xl font-bold text-primary mb-2 tracking-tighter group-hover:translate-x-1 transition-transform">
           <Counter value={value} />{suffix}
         </div>
         <div className="text-[11px] font-bold text-muted-foreground uppercase tracking-[0.15em] leading-tight">{label}</div>
@@ -69,19 +69,19 @@ const HighlightCard = ({ label, value, index, icon: Icon }: { label: string; val
   )
 }
 
-const DashboardCard = ({ 
-  title, 
-  tag, 
-  icon: Icon, 
-  footerLeft, 
+const DashboardCard = ({
+  title,
+  tag,
+  icon: Icon,
+  footerLeft,
   footerRight,
   children,
-  className 
-}: { 
-  title: string; 
-  tag: string; 
-  icon?: any; 
-  footerLeft?: React.ReactNode; 
+  className
+}: {
+  title: string;
+  tag: string;
+  icon?: any;
+  footerLeft?: React.ReactNode;
   footerRight?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
@@ -92,7 +92,7 @@ const DashboardCard = ({
     viewport={{ once: false, amount: 0.3 }}
     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     className={cn(
-      "p-10 rounded-2xl bg-card/20 backdrop-blur-xl border border-border/40 flex flex-col justify-between min-h-[360px] group transition-all duration-500",
+      "p-6 md:p-10 rounded-2xl bg-card/20 backdrop-blur-xl border border-border/40 flex flex-col justify-between min-h-0 md:min-h-[360px] group transition-all duration-500",
       className
     )}
   >
@@ -102,10 +102,10 @@ const DashboardCard = ({
           <div className="p-3 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-500">
             {Icon && <Icon className="w-5 h-5" />}
           </div>
-          <span className="text-[11px] font-black tracking-[0.25em] uppercase text-muted-foreground/60">{title}</span>
+          <span className="text-[11px] font-bold tracking-[0.25em] uppercase text-muted-foreground/60">{title}</span>
         </div>
       )}
-      {tag && <span className="text-[11px] font-black tracking-[0.25em] uppercase text-muted-foreground/30">{tag}</span>}
+      {tag && <span className="text-[11px] font-bold tracking-[0.25em] uppercase text-muted-foreground/30">{tag}</span>}
     </div>
 
     <div className="py-10">
@@ -123,7 +123,7 @@ const DashboardCard = ({
 
 const SkillBar = ({ label, percentage, delay, color }: { label: string; percentage: number; delay: number; color: string }) => (
   <div className="space-y-2">
-    <div className="flex justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground/80">
+    <div className="flex justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
       <span>{label}</span>
       <span>{percentage}%</span>
     </div>
@@ -154,7 +154,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
                 viewport={{ once: true }}
                 className="inline-flex items-center px-4 py-2 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 shadow-sm shadow-blue-500/5"
               >
-                <span className="text-xs font-bold tracking-wide uppercase">Intern @ Wells Fargo</span>
+                <span className="text-xs font-bold tracking-wide uppercase">Former Technology Program Intern @ Wells Fargo</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -163,7 +163,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
                 transition={{ delay: 0.1 }}
                 className="inline-flex items-center px-4 py-2 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 shadow-sm shadow-emerald-500/5"
               >
-                <span className="text-xs font-bold tracking-wide uppercase">Former Intern @ Genus</span>
+                <span className="text-xs font-bold tracking-wide uppercase">Former AI/ML Intern @ Genus</span>
               </motion.div>
             </div>
 
@@ -173,7 +173,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-5xl lg:text-7xl font-sans font-black tracking-tight leading-[1.05]"
+                className="text-4xl md:text-5xl lg:text-7xl font-sans font-bold tracking-tight leading-[1.05]"
               >
                 Building Impactful <br />
                 <span className="text-gradient">AI</span> Solutions.
@@ -188,12 +188,12 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
                   className="space-y-6 not-italic font-medium"
                 >
                   <p>
-                    I’m an AI/ML enthusiast who loves building real-world tech solutions that are practical and impactful. 
-                    I’m currently pursuing B.Tech in Artificial Intelligence at <strong className="text-foreground">SVNIT Surat</strong>, where I’ve worked on projects 
+                    I’m an AI/ML enthusiast who loves building real-world tech solutions that are practical and impactful.
+                    I’m currently pursuing B.Tech in Artificial Intelligence at <strong className="text-foreground">SVNIT Surat</strong>, where I’ve worked on projects
                     involving Generative AI, RAG systems, and intelligent automation.
                   </p>
                   <p>
-                    I enjoy exploring ideas through hackathons, research, and hands-on projects. Over time, I’ve built AI-powered platforms 
+                    I enjoy exploring ideas through hackathons, research, and hands-on projects. Over time, I’ve built AI-powered platforms
                     ranging from multilingual chatbot systems to document intelligence tools.
                   </p>
                 </motion.div>
@@ -206,7 +206,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
                 >
                   <p>
                     I’ve also worked on research in deep learning and healthcare AI, including a published paper on EEG-based depression detection.
-                    Apart from tech, I’ve been actively involved in leadership roles, growing as a developer and team player. 
+                    Apart from tech, I’ve been actively involved in leadership roles, growing as a developer and team player.
                   </p>
                   <p>
                     I’ve participated in 25+ national-level hackathons, earning multiple wins while collaborating with amazing teams under pressure.
@@ -217,7 +217,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
           </div>
 
           {/* Profile & Quick Stats Column */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -229,14 +229,14 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
               viewport={{ once: true }}
               className="relative aspect-square max-w-[280px] mx-auto rounded-2xl overflow-hidden border-4 border-background shadow-2xl group"
             >
-              <img 
-                src="/images/profile.jpeg" 
-                alt="Divya Jaisansaria" 
+              <img
+                src="/images/profile.jpeg"
+                alt="Divya Jaisansaria"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-linear-to-t from-primary/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-2" />
-                <span className="text-xs font-black text-white uppercase tracking-[0.2em]">Open to Work</span>
+                <span className="text-xs font-bold text-white uppercase tracking-[0.2em]">Open to Work</span>
               </div>
             </motion.div>
 
@@ -256,16 +256,16 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
               transition={{ delay: 0.5 }}
               className="flex flex-col gap-3"
             >
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 onClick={() => setActiveSection?.("projects")}
                 className="w-full rounded-2xl h-14 px-8 text-md font-bold gap-3 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
               >
                 <Rocket className="w-5 h-5" />
                 Explore Projects
               </Button>
-              <a 
-                href="/resume.pdf" 
+              <a
+                href="/resume.pdf"
                 download="Divya_Jaisansaria_Resume.pdf"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
@@ -288,17 +288,17 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
           icon={GraduationCap}
           footerLeft={
             <div className="space-y-1">
-              <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Class of</div>
-              <div className="text-2xl font-black">2027</div>
+              <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Class of</div>
+              <div className="text-2xl font-bold">2027</div>
             </div>
           }
           footerRight={
-            <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest text-right">
+            <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest text-right">
               Surat, Gujarat
             </div>
           }
         >
-          <h3 className="text-3xl lg:text-4xl font-sans font-black leading-tight tracking-tight group-hover:text-primary transition-colors">
+          <h3 className="text-3xl lg:text-4xl font-sans font-bold leading-tight tracking-tight group-hover:text-primary transition-colors">
             Sardar Vallabhbhai <br />
             National Institute <br />
             of Technology
@@ -313,7 +313,7 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
           tag="STACK"
           icon={BarChart3}
           footerLeft={
-            <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+            <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
               Core Expertise
             </div>
           }
@@ -336,29 +336,29 @@ export function AboutSection({ setActiveSection }: { setActiveSection?: (id: str
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="w-full p-10 lg:p-14 rounded-2xl bg-card/20 border border-border/40 backdrop-blur-xl flex flex-col items-center text-center gap-8 overflow-hidden relative group"
+        className="w-full p-8 md:p-10 lg:p-14 rounded-2xl bg-card/20 border border-border/40 backdrop-blur-xl flex flex-col items-center text-center gap-8 overflow-hidden relative group"
       >
         {/* Background Ambience - More subtle */}
         <div className="absolute inset-0 bg-linear-to-b from-primary/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
         <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/5 blur-[80px] rounded-full" />
 
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-muted/40 border border-border/40 text-[10px] font-black uppercase tracking-[0.15em]">
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-muted/40 border border-border/40 text-[10px] font-bold uppercase tracking-[0.15em]">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span>Available for work</span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-black tracking-tight max-w-2xl leading-[1.2]">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold tracking-tight max-w-2xl leading-[1.2]">
           Let's create something <br />
           new for big move
         </h2>
 
-        <Button 
-          size="lg" 
+        <Button
+          size="lg"
           onClick={() => {
             console.log("Navigating to contact section");
             setActiveSection?.("contact");
           }}
-          className="relative z-20 rounded-full px-10 h-14 text-sm font-black gap-2 bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95"
+          className="relative z-20 rounded-full px-10 h-14 text-sm font-bold gap-2 bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95"
         >
           Get In Touch
           <ArrowRight className="w-4 h-4" />
