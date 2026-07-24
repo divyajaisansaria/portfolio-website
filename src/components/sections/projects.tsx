@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Laptop3D } from "@/components/ui/laptop-3d"
-import { projects } from "@/data/projects"
+import { projects, Project } from "@/data/projects"
 import { ProjectDetailView } from "./project-detail"
 
 interface ProjectsSectionProps {
@@ -30,7 +30,8 @@ export function ProjectsSection({ activeFile, setActiveFile }: ProjectsSectionPr
   const categories = ["All", "AI/ML Models", "RAG Systems", "Full Stack"]
 
   const featuredProject = projects.find(p => p.id === featuredId)
-  const matchesSearch = (p) => {
+  const matchesSearch = (p: Project | undefined): boolean => {
+  if (!p) return false;
   if (!searchQuery) return true;
   const q = searchQuery.toLowerCase();
   return (
@@ -40,6 +41,7 @@ export function ProjectsSection({ activeFile, setActiveFile }: ProjectsSectionPr
     p.category?.toLowerCase().includes(q)
   );
 };
+
 const showFeatured = (filter === "All" || featuredProject?.category === filter) && matchesSearch(featuredProject);
 
   const filteredProjects = React.useMemo(() => {
