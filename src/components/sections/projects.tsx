@@ -29,7 +29,7 @@ export function ProjectsSection({ activeFile, setActiveFile }: ProjectsSectionPr
 
   const categories = ["All", "AI/ML Models", "RAG Systems", "Full Stack"]
 
-  const featuredProject = projects.find(p => p.id === featuredId)
+  const featuredProject = projects.find(p => p.id === featuredId)!;
   const matchesSearch = (p: Project | undefined): boolean => {
   if (!p) return false;
   if (!searchQuery) return true;
@@ -125,7 +125,7 @@ const showFeatured = (filter === "All" || featuredProject?.category === filter) 
       </div>
 
       {/* 3D Feature Area */}
-      {showFeatured && (
+      {showFeatured && featuredProject && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
